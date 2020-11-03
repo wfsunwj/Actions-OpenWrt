@@ -6,7 +6,7 @@
 # Blog: https://p3terx.com
 #=================================================
 
-name: Build OpenWrt
+name: Build HomeLede
 
 on:
   repository_dispatch:
@@ -18,13 +18,13 @@ on:
     paths:
       - '.config'
 #  schedule:
-#    - cron: 0 8 * * 5
+#    - cron: 0 18 * * 5
   watch:
     types: started
 
 env:
-  REPO_URL: https://github.com/openwrt/openwrt
-  REPO_BRANCH: lede-17.01
+  REPO_URL: https://github.com/xiaoqingfengATGH/HomeLede
+  REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: .config
   DIY_P1_SH: diy-part1.sh
@@ -73,10 +73,10 @@ jobs:
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
     - name: Update feeds
-      run: cd openwrt && ./scripts/feeds update -a
+      run: cd openwrt && ./prepareCompile.sh
 
     - name: Install feeds
-      run: cd openwrt && ./scripts/feeds install -a
+      run: cd openwrt 
 
     - name: Load custom configuration
       run: |
